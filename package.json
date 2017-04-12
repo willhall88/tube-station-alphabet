@@ -1,0 +1,18 @@
+{
+  "name": "efficient-tubes",
+  "version": "0.0.1",
+  "description": "A command-line program for finding the fewest tube stations with all letters of the alphabet",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "author": "Will Hall - https://github.com/willhall88",
+  "license": "ISC",
+  "bin": {
+    "tubes": "./index.js"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
