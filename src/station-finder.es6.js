@@ -7,12 +7,12 @@ class StationFinder {
 
   fileToArray (filename) {
     let file = fs.readFileSync(filename, 'utf8');
-    let array = file.split('\n');
+    let array = file.split('\r\n');
     return array;
   }
 
   stripDuplicateLetters (stations) {
-    let hash = {};
+    let map = new Map();
     stations.forEach(station => {
       let strippedStation = station
                               .toLowerCase()
@@ -21,18 +21,20 @@ class StationFinder {
                                 return self.indexOf(item) == pos && item != ' ';
                               })
                               .join('');
-      return hash[station] = strippedStation;
+      map.set(station, strippedStation)
     })
-    return hash;
+    return map;
   }
 
   scoreLetters (stations) {
+    const allLetters = [...stations.values()].join('');
     let letterScores = {};
+
     this.alphabet.split('').forEach(letter => {
-      let re = new RegExp(letter ,"gi");
       let count = 0;
-      if(Array.isArray(stations.join('').match(re))) {
-        count = stations.join('').match(re).length;
+      let re = new RegExp(letter ,"gi");
+      if(Array.isArray(allLetters.match(re))) {
+        count = allLetters.match(re).length;
       }
       return letterScores[letter] = count;
     })
