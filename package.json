@@ -9,7 +9,7 @@
   "author": "Will Hall - https://github.com/willhall88",
   "license": "ISC",
   "bin": {
-    "tubes": "./index.js"
+    "tubestations": "./index.js"
   },
   "devDependencies": {
     "chai": "^3.5.0",
