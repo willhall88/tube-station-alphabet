@@ -31,6 +31,27 @@ class StationFinder {
       }
     })
   }
+
+  scoreStations () {
+    this.stations.map(station => {
+      let numbers = station.characters.split('').map(character => {
+        return this.letters.get(character).value;
+      })
+      let score = numbers.reduce( (acc, cur) => acc + cur);
+      station.setScore(score);
+    })
+  }
+
+  valuableStation () {
+    let StationScores = new Map()
+    this.stations.forEach(station => {
+      StationScores.set(station.score, station);
+    })
+
+    let SortedStations = new Map([...StationScores.entries()].sort((a,b) => a[0] > b[0]));
+
+    return SortedStations.values().next().value; //returns first value in map
+  }
 };
 
 module.exports = StationFinder;

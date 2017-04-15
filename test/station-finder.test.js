@@ -19,7 +19,22 @@ describe('StationFinder', function() {
 
   it('counts the number of occurrences for each letter', function() {
     const stations = finder.fileToArray('./lib/test.csv');
-    finder.countLetters()
+    finder.countLetters();
     expect(finder.letters.get('a').value).to.eql(2);
+  });
+
+  it('scores each station according to the letter count', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    finder.countLetters();
+    finder.scoreStations();
+    expect(finder.stations[0].score).to.eql(11);
+  });
+
+  it('finds the lowest scoring station', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    finder.countLetters();
+    finder.scoreStations();
+
+    expect(finder.valuableStation().name).to.eql('Acton Town');
   });
 });
