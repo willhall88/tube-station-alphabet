@@ -85,6 +85,10 @@ class StationFinder {
       return !station.selected;
     })
   }
+
+  lettersToBeFound() {
+    return [...this.letters.values()].filter(letter => !letter.detected).length
+  }
 };
 
 module.exports = StationFinder;
