@@ -37,4 +37,13 @@ describe('StationFinder', function() {
 
     expect(finder.valuableStation().name).to.eql('Acton Town');
   });
+
+  it('should set all Letters in valuable station to detected', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    finder.countLetters();
+    finder.scoreStations();
+    finder.detectLetters('actonw')
+
+    expect(finder.letters.get('a').detected).to.be.true;
+  });
 });

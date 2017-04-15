@@ -52,6 +52,12 @@ class StationFinder {
 
     return SortedStations.values().next().value; //returns first value in map
   }
+
+  detectLetters (stationLetters) {
+    stationLetters.split('').map(character => {
+      this.letters.get(character).hit();
+    })
+  }
 };
 
 module.exports = StationFinder;
