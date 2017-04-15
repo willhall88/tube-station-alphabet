@@ -15,7 +15,7 @@ describe('Station', function() {
   });
 
   it('should know the unique characters in its name', function() {
-    expect(this.station.characters()).to.eql('aldgte');
+    expect(this.station.characters).to.eql('aldgte');
   });
 
   it('starts off without a score', function() {

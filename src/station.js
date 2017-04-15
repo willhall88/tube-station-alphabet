@@ -3,9 +3,10 @@ class Station {
     if (name == undefined) {throw new RangeError('Initial station name should be set')} ;
     this.name = name;
     this.score = null;
+    this.characters = this.getCharacters();
   }
 
-  characters() {
+  getCharacters() {
     let uniqCharacters = this.name
       .toLowerCase()
       .split('')
