@@ -4,6 +4,7 @@ class Letter {
     this.name = name;
     this.detected = false;
     this.value = 0;
+    this.score = 0;
   }
 
   hit() {
@@ -12,6 +13,9 @@ class Letter {
 
   setValue(value) {
     return this.value = value;
+  }
+  setScore(score) {
+    return this.score = score;
   }
 };
 

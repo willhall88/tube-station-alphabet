@@ -31,4 +31,9 @@ describe('Letter', function() {
     this.letter.setValue(15);
     expect(this.letter.value).to.eql(15);
   });
+
+  it('has a score', function() {
+    this.letter.setScore(0.15);
+    expect(this.letter.score).to.eql(0.15);
+  });
 });

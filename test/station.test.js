@@ -32,4 +32,13 @@ describe('Station', function() {
     this.station.setScore(15);
     expect(this.station.score).to.eql(15);
   });
+
+  it('starts off unselected', function() {
+    expect(this.station.selected).to.be.false;
+  });
+
+  it('should know if has been selected', function() {
+    this.station.setSelect();
+    expect(this.station.selected).to.be.true;
+  });
 });

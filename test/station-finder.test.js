@@ -13,21 +13,27 @@ describe('StationFinder', function() {
   it('makes an array of stations from file', function() {
     const stations = finder.fileToArray('./lib/test.csv');
     expect(stations).to.be.instanceOf(Array);
-    expect(stations.length).to.eql(2);
+    expect(stations.length).to.eql(3);
     expect(stations[0].name).to.eql('Acton Town');
   });
 
   it('counts the number of occurrences for each letter', function() {
     const stations = finder.fileToArray('./lib/test.csv');
     finder.countLetters();
-    expect(finder.letters.get('a').value).to.eql(2);
+    expect(finder.letters.get('a').value).to.eql(3);
+  });
+
+  it('scores each letter based on how frequently it occurs', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    finder.countLetters();
+    expect(finder.letters.get('a').score).to.be.within(0.857, 0.858);
   });
 
   it('scores each station according to the letter count', function() {
     const stations = finder.fileToArray('./lib/test.csv');
     finder.countLetters();
     finder.scoreStations();
-    expect(finder.stations[0].score).to.eql(11);
+    expect(finder.stations[0].score).to.be.within(5.380, 5.381);
   });
 
   it('finds the lowest scoring station', function() {
@@ -35,7 +41,7 @@ describe('StationFinder', function() {
     finder.countLetters();
     finder.scoreStations();
 
-    expect(finder.valuableStation().name).to.eql('Acton Town');
+    expect(finder.valuableStation().name).to.eql('Woolwich Arsenal');
   });
 
   it('should set all Letters in valuable station to detected', function() {
@@ -46,4 +52,15 @@ describe('StationFinder', function() {
 
     expect(finder.letters.get('a').detected).to.be.true;
   });
+
+  it('the valuable station should be set to "selected"', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    finder.countLetters();
+    finder.scoreStations();
+    finder.findAndUpdate();
+
+    expect(finder.selectedStations().length).to.eql(1);
+    expect(finder.selectedStations()[0].name).to.eql('Woolwich Arsenal');
+  });
+
 });

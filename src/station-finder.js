@@ -28,6 +28,7 @@ class StationFinder {
       if (characters.match(re) != null) {
         let count = characters.match(re).length;
         letter.setValue(count);
+        letter.setScore(1 - (count / characters.length));
       }
     })
   }
@@ -35,7 +36,7 @@ class StationFinder {
   scoreStations () {
     this.stations.map(station => {
       let numbers = station.characters.split('').map(character => {
-        return this.letters.get(character).value;
+        return this.letters.get(character).score;
       })
       let score = numbers.reduce( (acc, cur) => acc + cur);
       station.setScore(score);
@@ -47,15 +48,31 @@ class StationFinder {
     this.stations.forEach(station => {
       StationScores.set(station.score, station);
     })
-
-    let SortedStations = new Map([...StationScores.entries()].sort((a,b) => a[0] > b[0]));
-
+    let SortedStations = new Map([...StationScores.entries()].sort((a,b) => {
+      return b[0] - a[0];
+    }));
     return SortedStations.values().next().value; //returns first value in map
   }
 
   detectLetters (stationLetters) {
     stationLetters.split('').map(character => {
       this.letters.get(character).hit();
+    })
+  }
+
+  findAndUpdate() {
+    let station = this.valuableStation();
+    this.detectLetters(station.characters);
+    station.setSelect();
+    // let index = this.stations.indexOf(station);
+    // if (index > -1) {
+    //   this.stations.splice(index, 1);
+    // }
+  }
+
+  selectedStations() {
+    return this.stations.filter( station => {
+      return station.selected;
     })
   }
 };

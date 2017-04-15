@@ -4,6 +4,7 @@ class Station {
     this.name = name;
     this.score = null;
     this.characters = this.getCharacters();
+    this.selected = false;
   }
 
   getCharacters() {
@@ -19,6 +20,10 @@ class Station {
 
   setScore(value) {
     this.score = value;
+  }
+
+  setSelect() {
+    this.selected = true;
   }
 
 };
