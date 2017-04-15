@@ -7,11 +7,11 @@ class Letter {
   }
 
   hit() {
-    this.detected = true;
+    return this.detected = true;
   }
 
   setValue(value) {
-    this.value = value;
+    return this.value = value;
   }
 };
 

@@ -2,9 +2,12 @@ const expect = require('chai').expect;
 const Letter = require('../src/letter');
 
 describe('Letter', function() {
+  beforeEach(function() {
+    this.letter = new Letter('a');
+  });
+
   it('should have an initial name', function() {
-    const letter = new Letter('a');
-    expect(letter.name).to.eql('a');
+    expect(this.letter.name).to.eql('a');
   });
 
   it('raises error if no name', function() {
@@ -12,24 +15,20 @@ describe('Letter', function() {
   });
 
   it('has not been detected on initialise', function() {
-    const letter = new Letter('a');
-    expect(letter.detected).to.be.false;
+    expect(this.letter.detected).to.be.false;
   });
 
   it('can be detected', function() {
-    const letter = new Letter('a');
-    letter.hit();
-    expect(letter.detected).to.be.true;
+    this.letter.hit();
+    expect(this.letter.detected).to.be.true;
   });
 
   it('has a count of 0 on initialise', function() {
-    const letter = new Letter('a');
-    expect(letter.value).to.eql(0);
+    expect(this.letter.value).to.eql(0);
   });
 
   it('has a count of how many times it occurs', function() {
-    const letter = new Letter('a');
-    letter.setValue(15);
-    expect(letter.value).to.eql(15);
+    this.letter.setValue(15);
+    expect(this.letter.value).to.eql(15);
   });
 });
