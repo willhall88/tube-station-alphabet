@@ -24,6 +24,7 @@ class StationFinder {
     let characters = this.stations.map(station => station.characters).join('');
 
     this.letters.forEach(letter => {
+      if(letter.detected) { return; }
       let re = new RegExp(letter.name ,"gi");
       if (characters.match(re) != null) {
         let count = characters.match(re).length;
@@ -56,7 +57,10 @@ class StationFinder {
 
   detectLetters (stationLetters) {
     stationLetters.split('').map(character => {
-      this.letters.get(character).hit();
+      let letter = this.letters.get(character);
+      letter.hit();
+      letter.score = 0;
+      letter.value = 0;
     })
   }
 

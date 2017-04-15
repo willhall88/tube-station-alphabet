@@ -63,4 +63,14 @@ describe('StationFinder', function() {
     expect(finder.selectedStations()[0].name).to.eql('Woolwich Arsenal');
   });
 
+  it('the ofund letters should have a zero score and count', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    finder.countLetters();
+    finder.scoreStations();
+    finder.findAndUpdate();
+
+    finder.countLetters();
+    expect(finder.letters.get('a').score).to.eql(0);
+    expect(finder.letters.get('a').value).to.eql(0);
+  });
 });
