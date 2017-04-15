@@ -11,7 +11,7 @@ class Station {
       .toLowerCase()
       .split('')
       .filter((item, pos, self) => {
-        return self.indexOf(item) == pos && item != ' ';
+        return self.indexOf(item) == pos && item.match(/[a-z]/);
       })
       .join('')
     return uniqCharacters;

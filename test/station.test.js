@@ -14,8 +14,14 @@ describe('Station', function() {
     expect(function(){new Station()}).to.throw(RangeError);
   });
 
+
   it('should know the unique characters in its name', function() {
     expect(this.station.characters).to.eql('aldgte');
+  });
+
+  it('should remove any non letter characters', function() {
+    let station = new Station('Blackfriar [7')
+    expect(station.characters).to.eql('blackfri');
   });
 
   it('starts off without a score', function() {
