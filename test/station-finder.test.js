@@ -63,7 +63,7 @@ describe('StationFinder', function() {
     expect(finder.selectedStations()[0].name).to.eql('Woolwich Arsenal');
   });
 
-  it('the ofund letters should have a zero score and count', function() {
+  it('the found letters should have a zero score and count', function() {
     const stations = finder.fileToArray('./lib/test.csv');
     finder.countLetters();
     finder.scoreStations();
@@ -72,5 +72,21 @@ describe('StationFinder', function() {
     finder.countLetters();
     expect(finder.letters.get('a').score).to.eql(0);
     expect(finder.letters.get('a').value).to.eql(0);
+  });
+
+  it('the selected station should no longer be counted', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    expect(finder.totalCharacters().length).to.eql(21);
+    finder.countLetters();
+    finder.scoreStations();
+    finder.findAndUpdate();
+    expect(finder.totalCharacters().length).to.eql(17);
+  });
+
+  it('the selected station should no longer be counted', function() {
+    const stations = finder.fileToArray('./lib/test.csv');
+    stations[0].setSelect();
+
+    expect(finder.unselectedStations().length).to.eql(2);
   });
 });

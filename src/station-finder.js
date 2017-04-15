@@ -20,8 +20,12 @@ class StationFinder {
     return this.stations;
   }
 
+  totalCharacters () {
+    return this.unselectedStations().map(station => station.characters ).join('');
+  }
+
   countLetters () {
-    let characters = this.stations.map(station => station.characters).join('');
+    let characters = this.totalCharacters();
 
     this.letters.forEach(letter => {
       if(letter.detected) { return; }
@@ -35,7 +39,7 @@ class StationFinder {
   }
 
   scoreStations () {
-    this.stations.map(station => {
+    this.unselectedStations().map(station => {
       let numbers = station.characters.split('').map(character => {
         return this.letters.get(character).score;
       })
@@ -46,7 +50,7 @@ class StationFinder {
 
   valuableStation () {
     let StationScores = new Map()
-    this.stations.forEach(station => {
+    this.unselectedStations().forEach(station => {
       StationScores.set(station.score, station);
     })
     let SortedStations = new Map([...StationScores.entries()].sort((a,b) => {
@@ -68,15 +72,17 @@ class StationFinder {
     let station = this.valuableStation();
     this.detectLetters(station.characters);
     station.setSelect();
-    // let index = this.stations.indexOf(station);
-    // if (index > -1) {
-    //   this.stations.splice(index, 1);
-    // }
   }
 
   selectedStations() {
     return this.stations.filter( station => {
       return station.selected;
+    })
+  }
+
+  unselectedStations() {
+    return this.stations.filter( station => {
+      return !station.selected;
     })
   }
 };
